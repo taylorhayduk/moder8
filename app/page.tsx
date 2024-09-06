@@ -4,14 +4,31 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <h1 className={styles.title}>
-          Jiffy - Content moderation in 1 line of code
-        </h1>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Jiffy</h1>
+          <p className={styles.subtitle}>
+            Content moderation in 1 line of code
+          </p>
+          <p className={styles.attribution}>
+            {`Made for Gumroad by `}
+            <a
+              href="https://www.linkedin.com/in/taylorhayduk/"
+              className={styles.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Taylor Hayduk
+            </a>
+          </p>
+          <p className={styles.copyInstruction}>
+            Copy/paste this into your Terminal to give it a shot!
+          </p>
+        </header>
 
         <div className={styles.card}>
-          <h2 className={styles.subtitle}>API Request</h2>
+          <h2 className={styles.cardTitle}>API Request</h2>
           <div className={styles.codeBlock}>
-            <button className={styles.copyButton}>
+            <button className={styles.copyButton} aria-label="Copy code">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
