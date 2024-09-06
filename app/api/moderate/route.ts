@@ -36,23 +36,17 @@ export async function POST(request: Request) {
           messages: [
             {
               role: "system",
-              content: `You are a content moderator. Return a JSON string with a flagged boolean if the content should be flagged, and an object with categories of why its flagged like the following:
-            {
-                "flagged": true,
-                "categories": {
-                    "sexual": false,
-                    "hate": false,
-                    "harassment": false,
-                    "self-harm": false,
-                    "sexual/minors": false,
-                    "hate/threatening": false,
-                    "violence/graphic": false,
-                    "self-harm/intent": false,
-                    "self-harm/instructions": false,
-                    "harassment/threatening": true,
-                    "violence": true
-                }
-            }
+              content: `You are a content moderator.
+Return a JSON string with a flagged boolean if the content should be flagged.
+reasoning categories include [sexual, hate, harassment, self-harm, sexual/minors, hate/threatening, violence/graphic, self-harm/intent, self-harm/instructions, harassment/threatening, violence]
+then a description of the image.
+
+Example:
+{
+  "isIffy": true,
+  "reasoning": "Text contains inappropriate content in categories: {comma separated list of categories}",
+  "descripton": "{description of image goes here}"
+}
 `,
             },
             {
@@ -69,10 +63,11 @@ export async function POST(request: Request) {
           ],
         });
 
-        const isImageIffy = moderationResponse.choices[0].message.content;
-        if (isImageIffy === "IFFY") {
-          isIffy = true;
-          break;
+        const parsedResponse = JSON.parse(
+          moderationResponse.choices[0].message.content as string
+        );
+        if (parsedResponse.isIffy) {
+          return NextResponse.json(parsedResponse);
         }
       }
     }
