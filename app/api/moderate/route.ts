@@ -44,7 +44,7 @@ then a description of the image.
 Example:
 {
   "isIffy": true,
-  "reasoning": "Text contains inappropriate content in categories: {comma separated list of categories}",
+  "reasoning": "Text contains inappropriate content in categories: hate, harassment",
   "descripton": "{description of image goes here}"
 }
 `,
