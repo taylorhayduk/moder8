@@ -1,4 +1,5 @@
 import styles from "./page.module.css";
+import CodeSelector from "./components/CodeSelector";
 
 export default function Home() {
   return (
@@ -6,11 +7,9 @@ export default function Home() {
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Jiffy</h1>
-          <p className={styles.subtitle}>
-            Content moderation in 1 line of code
-          </p>
+          <p className={styles.subtitle}>Content moderation in a jiffy</p>
           <p className={styles.attribution}>
-            {`Made for Gumroad by `}
+            {`Made for Gumroad with ❤️ by `}
             <a
               href="https://www.linkedin.com/in/taylorhayduk/"
               className={styles.link}
@@ -20,41 +19,16 @@ export default function Home() {
               Taylor Hayduk
             </a>
           </p>
-          <p className={styles.copyInstruction}>
-            Copy/paste this into your Terminal to give it a shot!
-          </p>
         </header>
 
         <div className={styles.card}>
-          <h2 className={styles.cardTitle}>API Request</h2>
-          <div className={styles.codeBlock}>
-            <button className={styles.copyButton} aria-label="Copy code">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                width="20"
-                height="20"
-              >
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            </button>
-            <pre className={styles.code}>
-              {`curl https://gumroad-jiffy.vercel.app/api/moderate \\
-  -X POST \\
-  -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer YOUR_API_KEY_HERE" \\
-  -d '{
-    "content": [
-      {
-        "type": "text",
-        "text": "Your content here"
-      }
-    ]
-  }'`}
-            </pre>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>API Request</h2>
+            <p className={styles.copyInstruction}>
+              Copy/paste this into your Terminal to give it a shot!
+            </p>
           </div>
+          <CodeSelector />
         </div>
       </div>
     </main>

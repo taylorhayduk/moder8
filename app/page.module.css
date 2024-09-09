@@ -12,7 +12,7 @@
 
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .title {
@@ -46,6 +46,7 @@
 .copyInstruction {
   font-size: 0.875rem;
   color: #6b7280;
+  margin-bottom: 1rem;
 }
 
 .card {
@@ -55,38 +56,15 @@
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: #4b5563;
-}
-
-.codeBlock {
-  background-color: #1e293b;
-  border-radius: 0.375rem;
-  padding: 1rem;
-  position: relative;
-}
-
-.copyButton {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: none;
-  border: none;
-  color: #9ca3af;
-  cursor: pointer;
-}
-
-.copyButton:hover {
-  color: white;
-}
-
-.code {
-  color: #34d399;
-  font-family: monospace;
-  font-size: 0.875rem;
-  white-space: pre-wrap;
-  word-break: break-word;
 }
