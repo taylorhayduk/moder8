@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     console.error("Moderation Error:", error);
     return NextResponse.json(
       {
-        error: `${error?.message || error}`,
+        error: `${error}`,
       },
       { status: 500 }
     );
