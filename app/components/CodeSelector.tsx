@@ -55,6 +55,29 @@ const codeSnippets = [
       }
     ]
   }'`,
+  `curl https://gumroad-jiffy.vercel.app/api/moderate \\
+  -X POST \\
+  -H "Content-Type: application/json" \\
+  -d '{
+      "content": [
+        {
+          "type": "image_url",
+          "image_url": {"url": "https://api.url2png.com/v6/P4DF2F8BC83648/189f62d5d9da7d7308982fc5650fa4b3/png/?thumbnail_max_width=851&url=pornhub.com&viewport=1280x2000"}
+        },
+        {
+          "type": "image_url",
+          "image_url": {"url": "https://pbs.twimg.com/profile_images/1764285408135753728/pYT7qoCb_400x400.jpg"}
+        },
+        {
+          "type": "text",
+          "text": "Like the shape of an l on your forehead, loser."
+        },
+        {
+          "type": "text",
+          "text": "Your mom is lovely."
+        }
+      ]
+  }'`,
 ];
 
 export default function CodeSelector() {
