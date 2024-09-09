@@ -11,20 +11,35 @@ interface ContentItem {
 
 interface ModerationResult {
   isIffy: boolean;
-  reasoning: string;
-  details?: {
-    categories: string[];
-    description?: string;
-  };
+  categories: string[];
+  reasoning?: string;
 }
 
 export async function POST(request: Request) {
   try {
     const { content } = await request.json();
 
-    if (!Array.isArray(content)) {
-      throw new Error("Invalid content format. 'content' must be an array.");
+    // Validate content items
+    if (!content || !Array.isArray(content)) {
+      throw new Error("Invalid content format: 'content' must be an array.");
     }
+    content.forEach((item: ContentItem) => {
+      if (item.type !== "text" && item.type !== "image_url") {
+        throw new Error(
+          `Invalid content item: "type" must be "text" or "image_url".`
+        );
+      }
+      if (item.type === "text" && !item.text) {
+        throw new Error(
+          'Invalid content item: "type" is "text" but "text" field is missing.'
+        );
+      }
+      if (item.type === "image_url" && !item.image_url?.url) {
+        throw new Error(
+          'Invalid content item: "type" is "image_url" but "image_url" field is missing.'
+        );
+      }
+    });
 
     const moderationPromises: Array<Promise<ModerationResult>> = content.map(
       async (item: ContentItem) => moderateContent(item)
@@ -33,22 +48,21 @@ export async function POST(request: Request) {
     const moderationResults = await Promise.all(moderationPromises);
 
     const overallIsIffy = moderationResults.some((result) => result.isIffy);
-    const overallReasoning = moderationResults
+    const categories = moderationResults
       .filter((result) => result.isIffy)
-      .map((result) => result.reasoning)
-      .join(" | ");
+      .flatMap((result) => result.categories)
+      .filter((category, index, self) => self.indexOf(category) === index);
 
     return NextResponse.json({
       isIffy: overallIsIffy,
-      reasoning: overallReasoning,
-      itemResults: moderationResults,
+      categories,
+      content: moderationResults,
     });
   } catch (error) {
     console.error("Moderation Error:", error);
     return NextResponse.json(
       {
-        isIffy: true,
-        reasoning: "An error occurred during content moderation.",
+        error: `${error?.message || error}`,
       },
       { status: 500 }
     );
@@ -61,7 +75,7 @@ async function moderateContent(item: ContentItem): Promise<ModerationResult> {
   } else if (item.type === "image_url" && item.image_url?.url) {
     return await moderateImage(item.image_url.url);
   }
-  return { isIffy: false, reasoning: "Unsupported content type" };
+  return { isIffy: true, categories: [] };
 }
 
 async function moderateText(text: string): Promise<ModerationResult> {
@@ -69,17 +83,16 @@ async function moderateText(text: string): Promise<ModerationResult> {
     input: text,
   });
 
-  const result = { isIffy: false, reasoning: "" };
+  const result = { isIffy: false, categories: [] };
 
   const { flagged, categories } = moderationResponse.results[0];
   if (flagged) {
     result.isIffy = true;
-    result.reasoning = `Text contains inappropriate content in categories: ${Object.keys(
-      categories
-    )
+    // @ts-expect-error - TS is silly sometimes
+    result.categories = Object.keys(categories).filter(
       // @ts-expect-error - TS doesn't know that categories is a Record<string, boolean>
-      .filter((category) => categories[category])
-      .join(", ")}`;
+      (key) => categories[key] === true
+    ) as string[];
   }
   return result;
 }
@@ -98,8 +111,8 @@ then a description of the image.
 Example:
 {
   "isIffy": true,
-  "reasoning": "Text contains inappropriate content in categories: hate, harassment",
-  "descripton": "{description of image goes here}"
+  "categories": ["hate", "harassment"],
+  "reasoning": "{description of image goes here}"
 }
 `,
       },
