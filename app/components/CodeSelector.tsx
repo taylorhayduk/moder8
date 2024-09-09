@@ -8,36 +8,36 @@ const codeSnippets = [
   -X POST \\
   -H "Content-Type: application/json" \\
   -d '{
-"content": [
-  {
-    "type": "text",
-    "text": "{\\"type\\":\\"product\\",\\"url\\":\\"goodsnooze.gumroad.com/l/vivid\\",\\"name\\":\\"Vivid - Double your MacBook Pro Brightness\\",\\"description\\":\\"Vivid doubles the brightness of your MacBook Pro across all apps, not just videos! ⚠️ Vivid only works on MacBook Pro with M1/2/3 Pro or Max chips.\\"}"
-  },
-  {
-    "type": "image_url",
-    "image_url": {
-      "url": "https://public-files.gumroad.com/bbaop6t7ewslyb1q4rdwssyf0yw1"
-    }
-  }
-]
-}'`,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\\"type\\":\\"product\\",\\"url\\":\\"goodsnooze.gumroad.com/l/vivid\\",\\"name\\":\\"Vivid - Double your MacBook Pro Brightness\\",\\"description\\":\\"Vivid doubles the brightness of your MacBook Pro across all apps, not just videos! ⚠️ Vivid only works on MacBook Pro with M1/2/3 Pro or Max chips.\\"}"
+      },
+      {
+        "type": "image_url",
+        "image_url": {
+          "url": "https://public-files.gumroad.com/bbaop6t7ewslyb1q4rdwssyf0yw1"
+        }
+      }
+    ]
+    }'`,
   `curl https://gumroad-jiffy.vercel.app/api/moderate \\
   -X POST \\
   -H "Content-Type: application/json" \\
   -d '{
-"content": [
-  {
-    "type": "text",
-    "text": "{\\"url\\":\\"pornhub.com\\",\\"content\\":\\"This is an adult website. This website contains age-restricted materials including nudity and explicit depictions of sexual activity. By entering, you affirm that you are at least 18 years of age or the age of majority in the jurisdiction you are accessing the website from and you consent to viewing sexually explicit content.\\"}"
-  },
-  {
-    "type": "image_url",
-    "image_url": {
-      "url": "https://api.url2png.com/v6/P4DF2F8BC83648/189f62d5d9da7d7308982fc5650fa4b3/png/?thumbnail_max_width=851&url=pornhub.com&viewport=1280x2000"
-    }
-  }
-]
-}'`,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\\"url\\":\\"pornhub.com\\",\\"content\\":\\"This is an adult website. This website contains age-restricted materials including nudity and explicit depictions of sexual activity. By entering, you affirm that you are at least 18 years of age or the age of majority in the jurisdiction you are accessing the website from and you consent to viewing sexually explicit content.\\"}"
+      },
+      {
+        "type": "image_url",
+        "image_url": {
+          "url": "https://api.url2png.com/v6/P4DF2F8BC83648/189f62d5d9da7d7308982fc5650fa4b3/png/?thumbnail_max_width=851&url=pornhub.com&viewport=1280x2000"
+        }
+      }
+    ]
+    }'`,
   `curl https://gumroad-jiffy.vercel.app/api/moderate \\
   -X POST \\
   -H "Content-Type: application/json" \\
