@@ -6,8 +6,10 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Jiffy</h1>
-          <p className={styles.subtitle}>Content moderation in a jiffy</p>
+          <h1 className={styles.title}>Moder8</h1>
+          <p className={styles.subtitle}>
+            Content moderation in 1 line of code
+          </p>
           <p className={styles.attribution}>
             {`Made with ❤️ by `}
             <a
