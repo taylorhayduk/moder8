@@ -30,16 +30,7 @@ export default function Home() {
             </a>
           </p>
         </header>
-
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>API Request</h2>
-            <p className={styles.copyInstruction}>
-              Copy/paste this into your Terminal to give it a shot!
-            </p>
-          </div>
-          <CodeSelector />
-        </div>
+        <CodeSelector />
       </div>
     </main>
   );
