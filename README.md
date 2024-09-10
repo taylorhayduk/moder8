@@ -1,12 +1,16 @@
-# Welcome to Jiffy!
+# Welcome to Moder8!
 
-Hello, Gumroad team! I'm Taylor Hayduk, and I've had a lot of fun creating Jiffy, my take on Iffy, Gumroad's content moderation API.
+Moder8 is content moderation in one line of code.
 
-I love your work, your support of the creator community, and the way you run the team. I'd be soooo happy to work with y'all!
+Moder8 was built from scratch on NextJS, uses OpenAI's moderation API for text, and prompt engineering alongside OpenAI's completions API for images. It is deployed on Vercel and uses cloud functions for the moderation route.
+
+Moder8 enhances content moderation by processing an array of text and images simultaneously. It returns all content violation categories at the root level, with content-specific categories and reasoning provided for each item in a nested array. This structure ensures that the moderation results are both specific and useful, providing granular insights into why each piece of content was flagged.
+
+Each element in the content array is passed to OpenAI individually but simultaneously, to provide granular flagging while maintaining a fast API.
 
 ## Table of Contents
 
-- [About Jiffy](#about-jiffy)
+- [About Moder8](#about-Moder8)
 - [Contact Information](#contact-information)
 - [Live Deployment](#live-deployment)
 - [Features](#features)
@@ -14,16 +18,6 @@ I love your work, your support of the creator community, and the way you run the
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Future Improvements](#future-improvements)
-
-## About Jiffy
-
-Jiffy was built from scratch on NextJS, uses OpenAI's moderation API for text, and prompt engineering alongside OpenAI's completions API for images. It is deployed on Vercel and uses cloud functions for the moderation route.
-
-### Improvements to Iffy
-
-Jiffy enhances content moderation by processing an array of text and images simultaneously. It returns all content violation categories at the root level, with content-specific categories and reasoning provided for each item in a nested array. This structure ensures that the moderation results are both specific and useful, providing granular insights into why each piece of content was flagged.
-
-Each element in the content array is passed to OpenAI individually but simultaneously, to provide granular flagging while maintaining a fast API.
 
 **Contact Information:**
 
@@ -34,7 +28,7 @@ Each element in the content array is passed to OpenAI individually but simultane
 
 ## Live Deployment
 
-This application is live at https://gumroad-jiffy.vercel.app/
+This application is live at https://moder8.vercel.app/
 
 ## Features
 
@@ -66,13 +60,13 @@ This application is live at https://gumroad-jiffy.vercel.app/
 1. Clone the repository:
 
    ```
-   git clone https://github.com/taylorhayduk/gumroad-jiffy.git
+   git clone https://github.com/taylorhayduk/moder8.git
    ```
 
 2. Install dependencies:
 
    ```
-   cd jiffy-api
+   cd moder8
    npm install
    ```
 
@@ -90,10 +84,10 @@ This application is live at https://gumroad-jiffy.vercel.app/
 
 ## Usage
 
-To use the Jiffy API, send a POST request to the `/api/moderate` endpoint with your content in the request body. Here's an example using curl:
+To use the Moder8 API, send a POST request to the `/api/moderate` endpoint with your content in the request body. Here's an example using curl:
 
 ```bash
-curl https://gumroad-jiffy.vercel.app/api/moderate \
+curl https://moder8.vercel.app/api/moderate \
   -X POST \
   -H "Content-Type: application/json" \
   -d '{
@@ -118,11 +112,11 @@ The API returns a JSON response with the following structure:
 
 ```json
 {
-  "isIffy": boolean,
+  "flagged": boolean,
   "categories": string[],
   "content": [
     {
-      "isIffy": boolean,
+      "flagged": boolean,
       "categories": string[],
       "reasoning": string,
     }
@@ -130,10 +124,10 @@ The API returns a JSON response with the following structure:
 }
 ```
 
-- `isIffy` [root]: Flag indicating if a content item was flagged as inappropriate. The `isIffy` at the root will be true if **any** content is flagged.
+- `flagged` [root]: Flag indicating if a content item was flagged as inappropriate. The `flagged` at the root will be true if **any** content is flagged.
 - `categories`: All deduplicated flagging categories across all content items.
 - `content`: Array of individual moderation results for each content item.
-  - `isIffy`: Flag indicating if specific content was flagged as inappropriate.
+  - `flagged`: Flag indicating if specific content was flagged as inappropriate.
   - `categories`: Flagging categories for specific content.
   - `reasoning`: Description of why the content was flagged.
 

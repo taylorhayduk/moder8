@@ -69,7 +69,7 @@ export default function CodeSelector() {
 }
 
 const codeSnippets = [
-  `curl https://gumroad-jiffy.vercel.app/api/moderate \\
+  `curl https://moder8.vercel.app/api/moderate \\
 -X POST \\
 -H "Content-Type: application/json" \\
 -d '{
@@ -86,7 +86,7 @@ const codeSnippets = [
     }
   ]
 }'`,
-  `curl https://gumroad-jiffy.vercel.app/api/moderate \\
+  `curl https://moder8.vercel.app/api/moderate \\
 -X POST \\
 -H "Content-Type: application/json" \\
 -d '{
@@ -103,7 +103,7 @@ const codeSnippets = [
     }
   ]
 }'`,
-  `curl https://gumroad-jiffy.vercel.app/api/moderate \\
+  `curl https://moder8.vercel.app/api/moderate \\
 -X POST \\
 -H "Content-Type: application/json" \\
 -d '{
@@ -120,7 +120,7 @@ const codeSnippets = [
     }
   ]
 }'`,
-  `curl https://gumroad-jiffy.vercel.app/api/moderate \\
+  `curl https://moder8.vercel.app/api/moderate \\
 -X POST \\
 -H "Content-Type: application/json" \\
 -d '{

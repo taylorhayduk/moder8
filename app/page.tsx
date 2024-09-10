@@ -9,7 +9,7 @@ export default function Home() {
           <h1 className={styles.title}>Jiffy</h1>
           <p className={styles.subtitle}>Content moderation in a jiffy</p>
           <p className={styles.attribution}>
-            {`Made for Gumroad with ❤️ by `}
+            {`Made with ❤️ by `}
             <a
               href="https://www.linkedin.com/in/taylorhayduk/"
               className={styles.link}
@@ -21,7 +21,7 @@ export default function Home() {
           </p>
           <p className={styles.attribution}>
             <a
-              href="https://github.com/taylorhayduk/gumroad-jiffy"
+              href="https://github.com/taylorhayduk/moder8"
               className={styles.link}
               target="_blank"
               rel="noopener noreferrer"

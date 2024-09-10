@@ -10,7 +10,7 @@ interface ContentItem {
 }
 
 interface ModerationResult {
-  isIffy: boolean;
+  flagged: boolean;
   categories: string[];
   reasoning?: string;
 }
@@ -47,14 +47,14 @@ export async function POST(request: Request) {
 
     const moderationResults = await Promise.all(moderationPromises);
 
-    const overallIsIffy = moderationResults.some((result) => result.isIffy);
+    const overallFlagged = moderationResults.some((result) => result.flagged);
     const categories = moderationResults
-      .filter((result) => result.isIffy)
+      .filter((result) => result.flagged)
       .flatMap((result) => result.categories)
       .filter((category, index, self) => self.indexOf(category) === index);
 
     return NextResponse.json({
-      isIffy: overallIsIffy,
+      flagged: overallFlagged,
       categories,
       content: moderationResults,
     });
@@ -75,7 +75,7 @@ async function moderateContent(item: ContentItem): Promise<ModerationResult> {
   } else if (item.type === "image_url" && item.image_url?.url) {
     return await moderateImage(item.image_url.url);
   }
-  return { isIffy: true, categories: [] };
+  return { flagged: true, categories: [] };
 }
 
 async function moderateText(text: string): Promise<ModerationResult> {
@@ -83,11 +83,11 @@ async function moderateText(text: string): Promise<ModerationResult> {
     input: text,
   });
 
-  const result = { isIffy: false, categories: [] };
+  const result = { flagged: false, categories: [] };
 
   const { flagged, categories } = moderationResponse.results[0];
   if (flagged) {
-    result.isIffy = true;
+    result.flagged = true;
     // @ts-expect-error - TS is silly sometimes
     result.categories = Object.keys(categories).filter(
       // @ts-expect-error - TS doesn't know that categories is a Record<string, boolean>
@@ -110,7 +110,7 @@ then a description of the image.
 
 Example:
 {
-  "isIffy": true,
+  "flagged": true,
   "categories": ["hate", "harassment"],
   "reasoning": "{description of image goes here}"
 }
