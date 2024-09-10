@@ -1,10 +1,16 @@
-# Jiffy API & Taylor Hayduk's Gumroad Application
+# Welcome to Jiffy!
 
-Hello Gumroad team! I love your work, your support of the creator community, and the way you run the company. I'd be happy to have the opportunity to contribute to pushing Gumroad forward as a software engineer with 9 years of coding experience.
+Hello, Gumroad team! I'm Taylor, and I've had a lot of fun creating Jiffy, my take on Iffy, Gumroad's content moderation API.
 
-Jiffy is inspired by **Iffy by Gumroad** and enhances the content moderation process by providing a more detailed breakdown for each flagged content piece. This includes an array of reasoning for why a particular item was flagged, giving users better insight into moderation decisions.
+I love your work, your support of the creator community, and the way you run the team. I'd be soooo happy to work with y'all.
 
-For text, it is built on top of OpenAI's powerful moderation capabilities, and for images, it utilizes OpenAI's image capabilities alongside prompt engineering and validation checks to provide consistent results. This project is inspired **Iffy by Gumroad**, showcasing its features and adding my own improvements.
+## About Jiffy
+
+Jiffy was built from scratch on NextJS, uses OpenAI's moderation API for text, and porompt engineering alongside OpenAI's completions API for images. It is deployed on Vercel.
+
+### Improvements to Iffy
+
+Jiffy enhances content moderation by processing an array of text and images simultaneously. It returns all content violation categories at the root level, with content-specific categories and reasoning provided for each item in the nested array. This structure ensures that the moderation results are both specific and useful, providing granular insights into why each piece of content was flagged.
 
 **Contact Information:**
 
@@ -72,7 +78,6 @@ To use the Jiffy API, send a POST request to the `/api/moderate` endpoint with y
 curl https://gumroad-jiffy.vercel.app/api/moderate \
   -X POST \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_API_KEY_HERE" \
   -d '{
     "content": [
       {
@@ -96,20 +101,20 @@ The API returns a JSON response with the following structure:
 ```json
 {
   "isIffy": boolean,
-  "reasoning": string,
-  "itemResults": [
+  "categories": string[],
+  "content": [
     {
       "isIffy": boolean,
+      "categories": string[],
       "reasoning": string,
-      "details": {
-        "categories": string[],
-        "description": string
-      }
     }
   ]
 }
 ```
 
-- `isIffy`: Overall flag indicating if any content item was flagged as inappropriate.
-- `reasoning`: Overall reasoning for the moderation decision.
-- `itemResults`: Array of individual moderation results for each content item.
+- `isIffy` [root]: Flag indicating if a content item was flagged as inappropriate. The `isIffy` at the root will be true if **any** content is flagged.
+- `categories`: All deduplicated flagging categories across all content items.
+- `content`: Array of individual moderation results for each content item.
+  - `isIffy`: Flag indicating if specific content was flagged as inappropriate.
+  - `categories`: Flagging categories for specific content.
+  - `reasoning`: Description of why the content was flagged.

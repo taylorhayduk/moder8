@@ -19,6 +19,16 @@ export default function Home() {
               Taylor Hayduk
             </a>
           </p>
+          <p className={styles.attribution}>
+            <a
+              href="https://github.com/taylorhayduk/gumroad-jiffy"
+              className={styles.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github repo of this project
+            </a>
+          </p>
         </header>
 
         <div className={styles.card}>
